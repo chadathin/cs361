@@ -1,0 +1,12 @@
+    {% extends "base.html" %}
+
+    {% block content %}
+
+    <div class="d-grid gap-2 mx-auto">
+    {% for region in regions %}
+        <a href="/{{ region['name'] }}" class="btn btn-primary btn-lg" role="button" aria-disabled="false">{{ region['name'] }}</a>
+        {% endfor %}
+    </div>
+
+
+    {% endblock %}
