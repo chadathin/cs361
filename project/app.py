@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-from flask_mysqldb import MySQL
-import yaml
+#from flask_mysqldb import MySQL
+#import yaml
 import requests
 import json
 
@@ -20,6 +20,9 @@ url = "https://wger.de/api/v2/exercisecategory/"
 headers = {"Accept": "application/json"}
 r = requests.get(url=url, headers=headers, timeout=1)
 r = r.json()
+
+print(r["results"])			# <- For debugging
+
 regions = r["results"]
 region_to_id_dict = swap_region_codes(regions)			# {'Abs': 10, 'Arms': 8, 'Back': 12, 'Calves': 14, 'Chest': 11, 'Legs': 9, 'Shoulders': 13}
 
@@ -36,6 +39,9 @@ def show_abs():
 	headers = {"Accept": "application/json"}
 	abs_exercises = requests.get(url=url, params=params, headers=headers, timeout=1)
 	abs_exercises = abs_exercises.json()
+
+	print(abs_exercises) # <- For debugging
+
 	return render_template('abs.html', abs_exercises=abs_exercises)
 
 @app.route("/<exID>")
