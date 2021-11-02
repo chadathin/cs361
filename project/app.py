@@ -1,10 +1,44 @@
 from flask import Flask, render_template, request
 #from flask_mysqldb import MySQL
 #import yaml
+import collections
 import requests
 import json
 
 app = Flask(__name__)
+
+def get_artist_id(artist_name: str)->int:
+	"""
+	:param artist_name: string with underscores instead of spaces, i.e. 'metallica' or 'they_might_be_giants'
+	:return: TheAudioDB identifier (int)
+	"""
+
+	url = "https://www.theaudiodb.com/api/v1/json/1/search.php?s=" + str(artist_name)
+	response = requests.get(url=url)
+	response = response.json()
+	return response['artists'][0]['idArtist']
+
+def get_artist_albums(artist_ident: int) -> dict:
+	url = "https://theaudiodb.com/api/v1/json/1/album.php?i="+str(artist_ident)
+	response = requests.get(url=url)
+	response = response.json()
+	return response['album']
+
+def scrub_albums(album_dict: dict) -> dict:
+	out = collections.OrderedDict()
+	# album_count = 0
+	for album in album_dict:
+		year = album['intYearReleased']
+		name = album['strAlbum']
+		type = album['strReleaseFormat']
+		if year not in out.keys():
+			out[year] = []
+		if name not in out[year]:
+			out[year].append({'name': name, 'type': type})
+
+
+		# album_count += 1
+	return out
 
 regions = ['Abs','Arms', 'Back', 'Calves', 'Chest', 'Legs', 'Shoulders']
 
@@ -26,21 +60,15 @@ def exercises():
 
 	return exercise_list.json()[30]
 
-# @app.route("/Abs")
-# def show_abs():
-# 	url = "https://wger.de/api/v2/exercise/"
-# 	params = {"category": region_to_id_dict["Abs"], "language": 2}
-# 	headers = {"Accept": "application/json"}
-# 	abs_exercises = requests.get(url=url, params=params, headers=headers, timeout=1)
-# 	abs_exercises = abs_exercises.json()
-#
-# 	print(abs_exercises) # <- For debugging
-#
-# 	return render_template('abs.html', abs_exercises=abs_exercises)
 
-# @app.route("/<exID>")
-# def show_ex(exID):
-# 	url = "https://wger.de/api/v2/exercise/"
+@app.route("/fetch/<artist>")
+def fetch(artist):
+	artist_id = get_artist_id(artist)
+	albums = get_artist_albums(artist_id)
+	discography = scrub_albums(albums)
+	return discography
+
+
 
 if __name__ == "__main__":
 	app.run(debug=True, port=5000)
