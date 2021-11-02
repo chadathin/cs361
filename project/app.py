@@ -8,20 +8,16 @@ import json
 app = Flask(__name__)
 
 def swap_region_codes(regionDict: dict):
-    out={}
-    for region in regionDict:
-        out[region['name']] = region['id']
-    return out
-
-
+	out={}
+	for region in regionDict:
+		out[region['name']] = region['id']
+	return out
 
 # Make GET request to get body regions for landing page
 url = "https://wger.de/api/v2/exercisecategory/"
 headers = {"Accept": "application/json"}
 r = requests.get(url=url, headers=headers, timeout=1)
 r = r.json()
-
-print(r["results"])			# <- For debugging
 
 regions = r["results"]
 region_to_id_dict = swap_region_codes(regions)			# {'Abs': 10, 'Arms': 8, 'Back': 12, 'Calves': 14, 'Chest': 11, 'Legs': 9, 'Shoulders': 13}
@@ -30,7 +26,7 @@ region_to_id_dict = swap_region_codes(regions)			# {'Abs': 10, 'Arms': 8, 'Back'
 
 @app.route("/")
 def main():
-	return render_template('landing.html', regions = regions)
+	return render_template('landing.html', regions=regions)
 
 @app.route("/Abs")
 def show_abs():
@@ -48,42 +44,5 @@ def show_abs():
 def show_ex(exID):
 	url = "https://wger.de/api/v2/exercise/"
 
-
-# @app.route("/Arms")
-# def show_abs():
-# 	# make call and filter by abs id
-# 	# ...
-# 	return render_template('abs.html')
-
-# @app.route("/Back")
-# def show_abs():
-# 	# make call and filter by abs id
-# 	# ...
-# 	return render_template('abs.html')
-
-# @app.route("/Calves")
-# def show_abs():
-# 	# make call and filter by abs id
-# 	# ...
-# 	return render_template('abs.html')
-
-# @app.route("/Chest")
-# def show_abs():
-# 	# make call and filter by abs id
-# 	# ...
-# 	return render_template('abs.html')
-
-# @app.route("/Legs")
-# def show_abs():
-# 	# make call and filter by abs id
-# 	# ...
-# 	return render_template('abs.html')
-
-# @app.route("/Shoulders")
-# def show_abs():
-# 	# make call and filter by abs id
-# 	# ...
-# 	return render_template('abs.html')
-
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True, port=5000)
