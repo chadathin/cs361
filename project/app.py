@@ -17,14 +17,33 @@ def get_artist_id(artist_name: str)->int:
 	return response['artists'][0]['idArtist']
 
 def get_artist_albums(artist_ident: int) -> dict:
+	"""
+	:param artist_ident: int, artist ID from TheAudioDB
+	:return: dict of albums released by artist
+	"""
 	url = "https://theaudiodb.com/api/v1/json/1/album.php?i="+str(artist_ident)
 	response = requests.get(url=url)
 	response = response.json()
 	return response['album']
 
 def scrub_albums(album_dict: dict) -> dict:
+	"""
+	:param album_dict: dict of albums
+	:return: dict of lists of dicts featuring album name and type. Sorted by release year
+	{
+	<year>:
+		[
+			{"name": <name1>, "type":<album_type>},
+			{"name": <name2>, "type":<album_type>},
+		],
+	<year2>:
+		[
+			{"name": <name3>, "type":<album_type>},
+			{"name": <name4>, "type":<album_type>},
+		]
+	}
+	"""
 	out = collections.OrderedDict()
-	# album_count = 0
 	for album in album_dict:
 		year = album['intYearReleased']
 		name = album['strAlbum']
