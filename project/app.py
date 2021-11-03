@@ -30,18 +30,6 @@ def scrub_albums(album_dict: dict) -> dict:
 	"""
 	:param album_dict: dict of albums
 	:return: dict of lists of dicts featuring album name and type. Sorted by release year
-	{
-	<year>:
-		[
-			{"name": <name1>, "type":<album_type>},
-			{"name": <name2>, "type":<album_type>},
-		],
-	<year2>:
-		[
-			{"name": <name3>, "type":<album_type>},
-			{"name": <name4>, "type":<album_type>},
-		]
-	}
 	"""
 	out = collections.OrderedDict()
 	for album in album_dict:
@@ -52,9 +40,6 @@ def scrub_albums(album_dict: dict) -> dict:
 			out[year] = []
 		if name not in out[year]:
 			out[year].append({'name': name, 'type': type})
-
-
-		# album_count += 1
 	return out
 
 regions = ['Abs','Arms', 'Back', 'Calves', 'Chest', 'Legs', 'Shoulders']
@@ -75,7 +60,7 @@ def exercises():
 	print(params)
 	exercise_list = requests.get(url=url, params=params)
 
-	return exercise_list.json()[30]
+	return exercise_list.json()[0]
 
 
 @app.route("/fetch/<artist>")
