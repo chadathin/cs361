@@ -1,6 +1,5 @@
 # cs361
-Software Engineering I
-This is my project and service.
+Software Engineering I Project and Service
 
 The "project" aspect allows users to select body regions and recommends a list of exercises based on that region.
 The user can then select and exercise for more information (equipment, description, etc).
