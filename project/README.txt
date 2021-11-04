@@ -7,9 +7,10 @@ Artist name can be provided a number of ways. For example:
 
 - "The White Stripes"
 - "the_white_stripes"
-- "the white strips"
+- "the white stripes"
 
-Have all worked in testing.
+Have all worked in testing. However, other users have had success with 
+"the+white+stripes" as well.
 
 To accommodate artists who have released multiple albums in a single year,
 this will return a dict of lists of dicts; yeah, you read that right.
@@ -25,11 +26,11 @@ Response will be sorted by release year. Take "Taylor Swift" for example.
   "2008": [								<- Year
     {
       "name": "Fearless",				<- [0] = Album1
-      "type": "Album"
+      "type": "Album"   
     },
     {
       "name": "Beautiful Eyes",			<- [1] = Album2
-      "type": "EP"
+      "type": "EP"   
     },
     {
       "name": "Picture to Burn",		<- [2] = Album3
