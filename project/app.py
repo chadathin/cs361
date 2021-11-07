@@ -1,10 +1,11 @@
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, session, redirect, url_for
 import collections
 import requests
 import json
+from sys import getsizeof
 
 app = Flask(__name__)
-
+app.secret_key='NotSuperImportant'
 def get_artist_id(artist_name: str)->int:
 	"""
 	:param artist_name: string with underscores instead of spaces, i.e. 'metallica' or 'they_might_be_giants'
@@ -69,6 +70,7 @@ def main():
 
 @app.route("/exercises", methods=["GET", "POST"])
 def exercises():
+
 	var = request.form['category']								#get the value of the clicked region button
 	var = str(var).lower()
 	url = "https://exerciseservice.herokuapp.com/exercise/"
@@ -78,8 +80,33 @@ def exercises():
 	# print(request.__dict__)			# For debugging
 	result = requests.get(url=url, params=params, headers=headers)
 	result = result.json()
+
+	session['region'] = str(var)
+
 	return render_template("list.html", result=result)
 
+
+@app.route("/info", methods=["GET", "POST"])
+def showExercise():
+	exId = request.form['exercise']
+	region = session.get('region')
+	url = "https://exerciseservice.herokuapp.com/exercise/"
+	headers = {"Accept": "application/json"}
+	params = {'category': region}
+	result = requests.get(url=url, params=params, headers=headers)
+	result = result.json()
+	result = result["results"]
+
+	to_show = dict()
+
+	for exercise in result:
+		if exercise['id'] == int(exId):
+			to_show['name'] = exercise['name']
+			to_show['desc'] = exercise['description']
+			to_show['muscles'] = exercise['muscles']
+
+
+	return render_template("exerciseInfo.html", show=to_show, muscle_list=muscles)
 
 @app.route("/fetch/<artist>", methods=["GET"])
 def fetch(artist):

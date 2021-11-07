@@ -1,0 +1,9 @@
+{{ show['name'] }}
+<br>
+{{ show['desc'] }}
+
+<ul>
+    {% for muscle in show['muscles'] %}
+    <li>{{ muscle_list[muscle] }}</li>
+    {% endfor %}
+</ul>

@@ -2,11 +2,13 @@
 
 {% block content %}
 
-	<div class="d-grid gap-2 mx-auto">
-		{% for exercise in result["results"] %}
-        <a href="" value="{{ exercise['id'] }}"class="btn btn-primary btn-lg" role="button" aria-disabled="false">{{ exercise['name'] }}</a>
+<form action="{{ url_for('showExercise') }}" method="POST">
+    <div class="d-grid gap-2 mx-auto">
+        {% for exercise in result["results"] %}
+        <button type="submit" name= "exercise" value="{{ exercise['id'] }}" class="btn btn-primary btn-lg" role="button" aria-disabled="false">{{ exercise['name'] }}</button>
         {% endfor %}
     </div>
+</form>
 
 
-{% endblock content %}
+{% endblock %}
