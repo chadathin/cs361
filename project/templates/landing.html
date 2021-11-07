@@ -5,11 +5,10 @@
     <form action="{{ url_for('exercises') }}" method="POST">
         <div class="d-grid gap-2 mx-auto">
             {% for region in regions %}
-                <input type="submit" name= "region" value="{{ region }}" class="btn btn-primary btn-lg" role="button" aria-disabled="false">
+                <input type="submit" name= "category" value="{{ region }}" class="btn btn-primary btn-lg" role="button" aria-disabled="false">
             {% endfor %}
         </div>
     </form>
-
 
 
     {% endblock %}

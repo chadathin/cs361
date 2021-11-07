@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+	<div class="d-grid gap-2 mx-auto">
+		{% for exercise in result["results"] %}
+        <a href="" value="{{ exercise['id'] }}"class="btn btn-primary btn-lg" role="button" aria-disabled="false">{{ exercise['name'] }}</a>
+        {% endfor %}
+    </div>
+
+
+{% endblock content %}

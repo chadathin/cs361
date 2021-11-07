@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 import collections
 import requests
 import json
@@ -43,6 +43,23 @@ def scrub_albums(album_dict: dict) -> dict:
 	return out
 
 regions = ['Abs','Arms', 'Back', 'Calves', 'Chest', 'Legs', 'Shoulders']
+muscles = {
+	1:"Biceps Brachii",
+	2:"Anterior Deltoid",
+	3:"Serratus Anterior",
+	4:"Pectoralis Major",
+	5:"Triceps Brachii",
+	6:"Rectus Abdominis",
+	7:"Gastrocnemius",
+	8:"Gluteus Maxiums",
+	9:"Trapezius",
+	10:"Quadriceps Femoris",
+	11:"Biceps Femoris",
+	12:"Latissimus Dorsi",
+	13:"Brachialis",
+	14:"External Obliques",
+	15:"Soleus"
+}
 
 # ============= ROUTES =============
 
@@ -50,24 +67,27 @@ regions = ['Abs','Arms', 'Back', 'Calves', 'Chest', 'Legs', 'Shoulders']
 def main():
 	return render_template('landing.html', regions=regions)
 
-@app.route("/exercises", methods=["POST"])
+@app.route("/exercises", methods=["GET", "POST"])
 def exercises():
-	var = request.form['region']
+	var = request.form['category']								#get the value of the clicked region button
 	var = str(var).lower()
-
 	url = "https://exerciseservice.herokuapp.com/exercise/"
+	headers = {"Accept": "application/json"}
 	params = {'category': var}
-	print(params)
-	exercise_list = requests.get(url=url, params=params)
+	print(params)						# For debugging
+	# print(request.__dict__)			# For debugging
+	result = requests.get(url=url, params=params, headers=headers)
+	result = result.json()
+	return render_template("list.html", result=result)
 
-	return exercise_list.json()[0]
 
-
-@app.route("/fetch/<artist>")
+@app.route("/fetch/<artist>", methods=["GET"])
 def fetch(artist):
 	artist_id = get_artist_id(artist)
 	albums = get_artist_albums(artist_id)
 	discography = scrub_albums(albums)
+	discography = jsonify(discography)
+	discography.headers.add("Access-Control-Allow-Origin","*")
 	return discography
 
 
