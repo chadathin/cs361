@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bdb229f9-7e43-4bf2-baf7-1445a42bdad0" name="Changes" comment="IT'S ALIVE">
-      <change afterPath="$PROJECT_DIR$/templates/list.html" afterDir="false" />
+    <list default="true" id="bdb229f9-7e43-4bf2-baf7-1445a42bdad0" name="Changes" comment="Just trying to figure out sessions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/abs.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/landing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/upper.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exerciseInfo.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +78,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635903350059</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Just trying to figure out sessions">
+      <created>1636334871858</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1636334871858</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -102,6 +104,7 @@
     <MESSAGE value="changed &quot;base.html&quot; to &quot;index.html&quot;" />
     <MESSAGE value="Still trying to troubleshoot service" />
     <MESSAGE value="IT'S ALIVE" />
-    <option name="LAST_COMMIT_MESSAGE" value="IT'S ALIVE" />
+    <MESSAGE value="Just trying to figure out sessions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Just trying to figure out sessions" />
   </component>
 </project>

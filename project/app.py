@@ -3,9 +3,14 @@ import collections
 import requests
 import json
 from sys import getsizeof
+from flask_session import Session
 
 app = Flask(__name__)
-app.secret_key='NotSuperImportant'
+app.config['SECRET_KEY'] = 'MySecret'
+app.config['SESSION_TYPE'] = 'filesystem'
+
+sesh = Session(app)
+
 def get_artist_id(artist_name: str)->int:
 	"""
 	:param artist_name: string with underscores instead of spaces, i.e. 'metallica' or 'they_might_be_giants'
@@ -76,12 +81,9 @@ def exercises():
 	url = "https://exerciseservice.herokuapp.com/exercise/"
 	headers = {"Accept": "application/json"}
 	params = {'category': var}
-	print(params)						# For debugging
-	# print(request.__dict__)			# For debugging
 	result = requests.get(url=url, params=params, headers=headers)
 	result = result.json()
-
-	session['region'] = str(var)
+	session['exercise_list'] = result["results"]
 
 	return render_template("list.html", result=result)
 
@@ -89,17 +91,11 @@ def exercises():
 @app.route("/info", methods=["GET", "POST"])
 def showExercise():
 	exId = request.form['exercise']
-	region = session.get('region')
-	url = "https://exerciseservice.herokuapp.com/exercise/"
-	headers = {"Accept": "application/json"}
-	params = {'category': region}
-	result = requests.get(url=url, params=params, headers=headers)
-	result = result.json()
-	result = result["results"]
+	ex_list = session.get('exercise_list')
 
 	to_show = dict()
 
-	for exercise in result:
+	for exercise in ex_list:
 		if exercise['id'] == int(exId):
 			to_show['name'] = exercise['name']
 			to_show['desc'] = exercise['description']
