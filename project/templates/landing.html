@@ -1,5 +1,8 @@
     {% extends "index.html" %}
 
+    {% block area %} a body region {% endblock area %}
+    {% block todo %} begin finding exercises{% endblock todo %}
+
     {% block content %}
 
     <form action="{{ url_for('exercises') }}" method="POST">

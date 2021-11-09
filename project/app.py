@@ -67,6 +67,21 @@ muscles = {
 	15:"Soleus"
 }
 
+equipment = {
+	1: "Barbell",
+	2: "SZ-bar",
+	3: "Dumbbell",
+	4: "Gym mat",
+	5: "Swiss ball",
+	6: "Pull-up bar",
+	7: "None (bodyweight)",
+	8: "Bench",
+	9: "Incline bench",
+	10: "Kettlebell"
+
+
+}
+
 # ============= ROUTES =============
 
 @app.route("/")
@@ -99,10 +114,12 @@ def showExercise():
 		if exercise['id'] == int(exId):
 			to_show['name'] = exercise['name']
 			to_show['desc'] = exercise['description']
-			to_show['muscles'] = exercise['muscles']
+			to_show['primary'] = exercise['muscles']
+			to_show['secondary'] = exercise['muscles_secondary']
+			to_show['equip'] = exercise['equipment']
 
 
-	return render_template("exerciseInfo.html", show=to_show, muscle_list=muscles)
+	return render_template("exerciseInfo.html", show=to_show, muscle_list=muscles, equipment=equipment)
 
 @app.route("/fetch/<artist>", methods=["GET"])
 def fetch(artist):

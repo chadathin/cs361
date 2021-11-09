@@ -25,24 +25,15 @@
           <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
               <h1 class="display-5 fw-bold">Find your Fit</h1>
-              <p class="col-md-8 fs-4">Select a body region by clicking below to begin finding exercises!</p>
+              <p class="col-md-8 fs-4">Select{% block area %}{% endblock area %} by clicking below to {% block todo %}{% endblock todo %}!</p>
             </div>
           </div>
           <!-- END Jubmbotron lookalike -->
-
-          <!-- Back to start button -->
-          <div class="row">
-            <div class = "col-sm-8">
-              <a href="/" class="btn btn-primary btn-lg" style ="margin-bottom: 10px;" role="button" aria-disabled="false">Back to start</a>
-            </div>
-          </div>
 
           <!-- Content Block to sub in body regions and exercises -->
           {% block content %}
 
           {% endblock %}
-          <!-- END Content Block -->
-
         </div>
         <div class="col-md"></div>
       </div>
