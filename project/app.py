@@ -17,7 +17,7 @@ def get_artist_id(artist_name: str)->int:
 	:return: TheAudioDB identifier (int)
 	"""
 
-	url = "https://www.theaudiodb.com/api/v1/json/1/search.php?s=" + str(artist_name)
+	url = "https://www.theaudiodb.com/api/v1/json/2/search.php?s=" + str(artist_name)
 	response = requests.get(url=url)
 	response = response.json()
 	return response['artists'][0]['idArtist']
@@ -27,7 +27,7 @@ def get_artist_albums(artist_ident: int) -> dict:
 	:param artist_ident: int, artist ID from TheAudioDB
 	:return: dict of albums released by artist
 	"""
-	url = "https://theaudiodb.com/api/v1/json/1/album.php?i="+str(artist_ident)
+	url = "https://theaudiodb.com/api/v1/json/2/album.php?i="+str(artist_ident)
 	response = requests.get(url=url)
 	response = response.json()
 	return response['album']
