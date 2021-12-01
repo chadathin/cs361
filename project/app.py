@@ -9,10 +9,12 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'MySecret'
 app.config['SESSION_TYPE'] = 'filesystem'
 
+# Create session to store retrieved data for access between routes
 sesh = Session(app)
 
 def get_artist_id(artist_name: str)->int:
 	"""
+	Retrieves unique artist ID from AudioDB
 	:param artist_name: string with underscores instead of spaces, i.e. 'metallica' or 'they_might_be_giants'
 	:return: TheAudioDB identifier (int)
 	"""
@@ -24,6 +26,7 @@ def get_artist_id(artist_name: str)->int:
 
 def get_artist_albums(artist_ident: int) -> dict:
 	"""
+	Retrieves artist discography, using unique artist ID
 	:param artist_ident: int, artist ID from TheAudioDB
 	:return: dict of albums released by artist
 	"""
@@ -34,8 +37,9 @@ def get_artist_albums(artist_ident: int) -> dict:
 
 def scrub_albums(album_dict: dict) -> dict:
 	"""
+	Extracts pertinent information from discography dictionary
 	:param album_dict: dict of albums
-	:return: dict of lists of dicts featuring album name and type. Sorted by release year
+	:return: dict of lists of dicts featuring album name and type. Use OrderedDict to sort by release year.
 	"""
 	out = collections.OrderedDict()
 	for album in album_dict:
@@ -48,7 +52,10 @@ def scrub_albums(album_dict: dict) -> dict:
 			out[year].append({'name': name, 'type': type})
 	return out
 
+# Available body regions
 regions = ['Abs','Arms', 'Back', 'Calves', 'Chest', 'Legs', 'Shoulders']
+
+# To decode muscle ID to muscle string
 muscles = {
 	1:"Biceps Brachii",
 	2:"Anterior Deltoid",
@@ -67,6 +74,7 @@ muscles = {
 	15:"Soleus"
 }
 
+# To decode equipment ID to equipment string
 equipment = {
 	1: "Barbell",
 	2: "SZ-bar",
@@ -91,9 +99,9 @@ def main():
 @app.route("/exercises", methods=["GET", "POST"])
 def exercises():
 
-	var = request.form['category']								#get the value of the clicked region button
+	var = request.form['category']								# get the value of the clicked region button
 	var = str(var).lower()
-	url = "https://exerciseservice.herokuapp.com/exercise/"
+	url = "https://exerciseservice.herokuapp.com/exercise/"		# Call Matt B's service
 	headers = {"Accept": "application/json"}
 	params = {'category': var}
 	result = requests.get(url=url, params=params, headers=headers)
@@ -105,12 +113,12 @@ def exercises():
 
 @app.route("/info", methods=["GET", "POST"])
 def showExercise():
-	exId = request.form['exercise']
-	ex_list = session.get('exercise_list')
+	exId = request.form['exercise']								# Get exercise ID from clicked button
+	ex_list = session.get('exercise_list')						# Retrieve exercise list from stored session data
 
 	to_show = dict()
 
-	for exercise in ex_list:
+	for exercise in ex_list:									# Extract pertinent information
 		if exercise['id'] == int(exId):
 			to_show['name'] = exercise['name']
 			to_show['desc'] = exercise['description']
