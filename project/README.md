@@ -17,7 +17,7 @@ this will return a dict of lists of dicts; yeah, you read that right.
 Response will be sorted by release year. Take "Taylor Swift" for example.
 
 `{
-  "2006": [
+  "2006": [  
     {
       "name": "Taylor Swift",
       "type": "Album"
