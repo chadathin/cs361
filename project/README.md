@@ -17,19 +17,19 @@ this will return a dict of lists of dicts; yeah, you read that right.
 Response will be sorted by release year. Take "Taylor Swift" for example.
 
 `{
-  "2006": [  
+  "2006": [
     {
       "name": "Taylor Swift",
       "type": "Album"
     }
   ],
-  "2008": [								<- Year
+  "2008": [								
     {
-      "name": "Fearless",				<- [0] = Album1
+      "name": "Fearless",		
       "type": "Album"   
     },
     {
-      "name": "Beautiful Eyes",			<- [1] = Album2
+      "name": "Beautiful Eyes",
       "type": "EP"   
     },
     {
