@@ -1,22 +1,22 @@
-DISCOGRAPHY FETCHER
-You give it and artist name, it gives you that artist's discography
+# DISCOGRAPHY FETCHER
+## You give it and artist name, it gives you that artist's discography
 
-root url = "https://cb361.herokuapp.com/fetch/<artist_name>"
+- root url = "https://cb361.herokuapp.com/fetch/<artist_name>"
 
-Artist name can be provided a number of ways. For example:
+- Artist name can be provided a number of ways. For example:
 
-- "The White Stripes"
-- "the_white_stripes"
-- "the white stripes"
+  - "The White Stripes"
+  - "the_white_stripes"
+  - "the white stripes"
 
-Have all worked in testing. However, other users have had success with 
+- Have all worked in testing. However, other users have had success with 
 "the+white+stripes" as well.
 
-To accommodate artists who have released multiple albums in a single year,
+ - To accommodate artists who have released multiple albums in a single year,
 this will return a dict of lists of dicts; yeah, you read that right.
 Response will be sorted by release year. Take "Taylor Swift" for example.
 
-{
+`{
   "2006": [
     {
       "name": "Taylor Swift",
@@ -113,4 +113,4 @@ Response will be sorted by release year. Take "Taylor Swift" for example.
       "type": "Album"
     }
   ]
-} 
+} `
